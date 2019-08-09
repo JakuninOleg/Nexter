@@ -14,6 +14,44 @@ $color-grey-dark-2: #6D5D4B;
 $font-primary: "Nunito", sans-serif;
 $font-display: "Josefin Sans", sans-serif;
 
+@mixin respond($breakpoint) {
+    @if $breakpoint == small-phone {
+        @media only screen and (max-width: 26em) { //350px
+            @content;
+        }
+    }
+
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { //600px
+            @content;
+        }
+    }
+
+    @if $breakpoint == medium {
+        @media only screen and (max-width: 50em) { //800px
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 62.5em) { //1000px
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { //1200px
+            @content;
+        }
+    }
+
+    @if $breakpoint == big-desktop { //1800px
+        @media only screen and (min-width: 112.5em) {
+            @content;
+        }
+    }
+}
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -23,6 +61,10 @@ $font-display: "Josefin Sans", sans-serif;
 html {
     box-sizing: border-box;
     font-size: 62.5%;
+
+    @include respond(tab-land) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -36,4 +78,13 @@ body {
     display: grid;
     grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
     grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+
+    @include respond(tab-port) {
+        grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+        grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+    }
+
+    @include respond(medium) {
+        grid-template-rows: 6rem 80vh;
+    }
 }
